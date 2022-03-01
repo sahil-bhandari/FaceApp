@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">FaceApp</string>
+    <string name="glasses">Glasses tutorial</string>
+    <string name="share_image">Share Image</string>
+    <string name="refresh">Refresh</string>
+    <string name="Camera">CameraButton</string>
+</resources>
