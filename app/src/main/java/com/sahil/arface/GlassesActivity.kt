@@ -2,10 +2,12 @@ package com.sahil.arface
 
 import android.app.ActivityManager
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
+import android.provider.MediaStore
 import android.view.PixelCopy
 import android.view.View
 import android.widget.Toast
@@ -29,6 +31,7 @@ class GlassesActivity : AppCompatActivity() {
     }
 
     lateinit var scene: Scene
+    lateinit var bitmap: Bitmap
     lateinit var arFragment: FaceArFragment
     private var faceMeshTexture: Texture? = null
     private var glasses: ArrayList<ModelRenderable> = ArrayList()
@@ -126,9 +129,20 @@ class GlassesActivity : AppCompatActivity() {
             faceRegionsRenderable = glasses[index]
         }
 
+        button_share.setOnClickListener{
+
+            val bitmapPath: String = MediaStore.Images.Media.insertImage(contentResolver, bitmap, "AR_IMG_"+BuildConfig.APPLICATION_ID, null)
+            val bitmapUri = Uri.parse(bitmapPath)
+
+            val intent = Intent(Intent.ACTION_SEND)
+            intent.type = "image/png"
+            intent.putExtra(Intent.EXTRA_STREAM, bitmapUri)
+            startActivity(Intent.createChooser(intent, "Share"))
+        }
+
         button_camera.setOnClickListener {
             val view: ArSceneView = arFragment.arSceneView
-            val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
+            bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
             PixelCopy.request(view, bitmap, { copyResult ->
                 if (copyResult === PixelCopy.SUCCESS) {
                     ll_preview.visibility=View.VISIBLE

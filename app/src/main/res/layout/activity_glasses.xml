@@ -24,7 +24,7 @@
             android:contentDescription="@string/share_image" />
 
         <Button
-            android:id="@+id/btn_share"
+            android:id="@+id/button_share"
             android:gravity="center"
             android:layout_width="110dp"
             android:layout_height="40dp"
@@ -48,9 +48,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_margin="24dp"
-            android:src="@drawable/ic_autorenew_black_24"
-            android:background="?android:attr/selectableItemBackground"
-            android:contentDescription="@string/refresh" />
+            android:src="@drawable/ic_autorenew_black_24" />
 
         <ImageButton
             android:id="@+id/button_camera"
@@ -58,9 +56,7 @@
             android:layout_height="50dp"
             android:layout_margin="24dp"
             android:src="@drawable/ic_baseline_camera_24"
-            android:layout_gravity="bottom|center_horizontal"
-            android:background="?android:attr/selectableItemBackground"
-            android:contentDescription="@string/Camera" />
+            android:layout_gravity="bottom|center_horizontal" />
 
     </LinearLayout>
 
