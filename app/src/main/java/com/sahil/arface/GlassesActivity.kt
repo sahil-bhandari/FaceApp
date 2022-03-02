@@ -54,7 +54,11 @@ class GlassesActivity : AppCompatActivity() {
 
         initAssets()
 
+        createScene()
 
+    }
+
+    private fun createScene() {
         //Create SceneView
         val sceneView = arFragment.arSceneView
         sceneView.cameraStreamRenderPriority = Renderable.RENDER_PRIORITY_FIRST
@@ -118,7 +122,7 @@ class GlassesActivity : AppCompatActivity() {
 
     private fun initViews() {
 
-        ll_preview.visibility=View.GONE
+        ll_preview.visibility = View.GONE
 
         button_next.setOnClickListener {
             changeModel = !changeModel
@@ -129,13 +133,19 @@ class GlassesActivity : AppCompatActivity() {
             faceRegionsRenderable = glasses[index]
         }
 
-        button_share.setOnClickListener{
+        button_share.setOnClickListener {
 
-            val bitmapPath: String = MediaStore.Images.Media.insertImage(contentResolver, bitmap, "AR_IMG_"+BuildConfig.APPLICATION_ID, null)
+            val bitmapPath: String = MediaStore.Images.Media.insertImage(
+                contentResolver,
+                bitmap,
+                "AR_IMG_" + BuildConfig.APPLICATION_ID.replace(".", "_"),
+                null
+            )
             val bitmapUri = Uri.parse(bitmapPath)
 
             val intent = Intent(Intent.ACTION_SEND)
-            intent.type = "image/png"
+            intent.putExtra(Intent.EXTRA_TEXT, "Hello,\nCheck out this cool image.\nApp available at https://github.com/sahil-bhandari/FaceApp")
+            intent.type = "image/*"
             intent.putExtra(Intent.EXTRA_STREAM, bitmapUri)
             startActivity(Intent.createChooser(intent, "Share"))
         }
@@ -145,10 +155,10 @@ class GlassesActivity : AppCompatActivity() {
             bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
             PixelCopy.request(view, bitmap, { copyResult ->
                 if (copyResult === PixelCopy.SUCCESS) {
-                    ll_preview.visibility=View.VISIBLE
+                    ll_preview.visibility = View.VISIBLE
                     iv_screen.setImageBitmap(bitmap)
                 } else {
-                    ll_preview.visibility=View.GONE
+                    ll_preview.visibility = View.GONE
                 }
             }, Handler())
         }
@@ -164,9 +174,8 @@ class GlassesActivity : AppCompatActivity() {
             finish()
             return false
         }
-        val openGlVersionString = (getSystemService(Context.ACTIVITY_SERVICE) as? ActivityManager)
-            ?.deviceConfigurationInfo
-            ?.glEsVersion
+        val openGlVersionString =
+            (getSystemService(Context.ACTIVITY_SERVICE) as? ActivityManager)?.deviceConfigurationInfo?.glEsVersion
 
         openGlVersionString?.let {
             if (java.lang.Double.parseDouble(openGlVersionString) < MIN_OPENGL_VERSION) {
