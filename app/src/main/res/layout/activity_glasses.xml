@@ -21,6 +21,7 @@
             android:id="@+id/iv_screen"
             android:layout_width="110dp"
             android:layout_height="190dp"
+            android:scaleType="fitCenter"
             android:contentDescription="@string/share_image" />
 
         <Button
@@ -29,13 +30,11 @@
             android:layout_width="110dp"
             android:layout_height="40dp"
             android:textSize="11sp"
+            android:drawableStart="@drawable/ic_baseline_share_24"
             android:text="@string/share_image"/>
 
 
     </LinearLayout>
-
-
-
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -48,6 +47,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_margin="24dp"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:src="@drawable/ic_autorenew_black_24" />
 
         <ImageButton
@@ -56,6 +56,7 @@
             android:layout_height="50dp"
             android:layout_margin="24dp"
             android:src="@drawable/ic_baseline_camera_24"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_gravity="bottom|center_horizontal" />
 
     </LinearLayout>
