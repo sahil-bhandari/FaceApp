@@ -3,6 +3,7 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="com.sahil.arface">
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-feature android:name="android.hardware.camera.ar" android:required="true"/>
 
@@ -12,8 +13,7 @@
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
-            android:usesCleartextTraffic="false"
-            tools:ignore="GoogleAppIndexingWarning"
+            android:usesCleartextTraffic="true"
             android:theme="@style/AppTheme">
 
         <meta-data android:name="com.google.ar.core" android:value="required" />

@@ -21,6 +21,8 @@ import com.google.ar.sceneform.rendering.ModelRenderable
 import com.google.ar.sceneform.rendering.Renderable
 import com.google.ar.sceneform.rendering.Texture
 import com.google.ar.sceneform.ux.AugmentedFaceNode
+import com.google.firebase.FirebaseApp
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.android.synthetic.main.activity_glasses.*
 
 
@@ -42,7 +44,6 @@ class GlassesActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         // Check ARCore and OpenGL ES 3.0 compatibility. Else close.
         if (!checkIsSupportedDeviceOrFinish()) {
             return
@@ -122,6 +123,9 @@ class GlassesActivity : AppCompatActivity() {
 
     private fun initViews() {
 
+        FirebaseApp.initializeApp(this)
+        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true)
+
         ll_preview.visibility = View.GONE
 
         button_next.setOnClickListener {
@@ -131,6 +135,7 @@ class GlassesActivity : AppCompatActivity() {
                 index = 0
             }
             faceRegionsRenderable = glasses[index]
+//            throw RuntimeException("Test Crash")
         }
 
         button_share.setOnClickListener {
@@ -138,7 +143,7 @@ class GlassesActivity : AppCompatActivity() {
             val bitmapPath: String = MediaStore.Images.Media.insertImage(
                 contentResolver,
                 bitmap,
-                "AR_IMG_" + BuildConfig.APPLICATION_ID.replace(".", "_"),
+                "AR_IMG_" + BuildConfig.APPLICATION_ID.replace(".", "_")/*+(System.currentTimeMillis()/1000)*/,
                 null
             )
             val bitmapUri = Uri.parse(bitmapPath)
